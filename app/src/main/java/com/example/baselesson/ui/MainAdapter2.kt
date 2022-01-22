@@ -1,4 +1,4 @@
-package com.example.baselesson
+package com.example.baselesson.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.baselesson.databinding.ItemCountBinding
 import com.example.baselesson.extension.load
 
+class MainAdapter2(val list: MutableList<String>) :
+    RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
 
-class MainAdapter(val list: MutableList<String>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     private lateinit var onClick: OnClick
     fun setOnClick(onClick: OnClick) {
         this.onClick = onClick
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter2.ViewHolder {
         return ViewHolder(
             ItemCountBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -25,15 +26,15 @@ class MainAdapter(val list: MutableList<String>) : RecyclerView.Adapter<MainAdap
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainAdapter2.ViewHolder, position: Int) {
         holder.onBind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
 
-
-   inner class ViewHolder(private var binding: ItemCountBinding) :
+    class ViewHolder(private var binding: ItemCountBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private lateinit var onClick: OnClick
         fun onBind(s: String) {
             binding.image.load(s)
             itemView.setOnClickListener {
@@ -44,18 +45,9 @@ class MainAdapter(val list: MutableList<String>) : RecyclerView.Adapter<MainAdap
                     binding.teal.visibility = View.GONE
                     onClick.onDelete(s)
                 }
+
             }
 
-
-
         }
-
     }
-    interface OnClick {
-
-        fun onClick(position: String)
-        fun onDelete(position: String)
-    }
-
-
 }

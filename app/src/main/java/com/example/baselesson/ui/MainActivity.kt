@@ -1,10 +1,8 @@
-package com.example.baselesson
+package com.example.baselesson.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Adapter
-import androidx.recyclerview.widget.RecyclerView
 import com.example.baselesson.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,12 +16,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         initAdapter()
         binding.btnSent.setOnClickListener {
             initIntent()
         }
-        adapterM.setOnClick(object : MainAdapter.OnClick {
+        adapterM.setOnClick(object : OnClick {
             override fun onClick(position: String) {
                 list2.add(position)
 
